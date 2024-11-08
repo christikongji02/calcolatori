@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>onside</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="cortellazzochat">
+    <div class="overlay", id="overlay">
+        <div class="header">
+            <h3>Cortellazzo</h3>
+            <button id="appari" onclick="apri()"><h5>Proponi partita</h5></button>
+            <h6>EST 07/05/2022</h6>
+        </div>
+
+        <a href="seleziona data.html">
+            <div id="vota">
+                <h5>E' stata proposta unna partita</h5>
+                <h6>Inserisci le tue disponibilità</h6>
+            </div>
+        </a>
+
+        <div class="body" id="bodycortellazzo" style="display: flex; flex-direction: row;">
+            <img id="chat" src="chat.png" style="width: 400px;">
+            <img id="chat" style="width: 1200px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Stadiumi_Flamurtari_Vlor%C3%AB.jpg/640px-Stadiumi_Flamurtari_Vlor%C3%AB.jpg"
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <h2>Quando vuoi proporre la partita?</h2>
+        <div id="data">
+            <p>Da</p>
+            <input type="date" id="date1">
+            <p>a</p>
+            <input type="date" id="date2">
+        </div>
+         <button id="proponi" onclick="off()"><h3>Proponi al gruppo</h3></button>
+    </div>
+
+    <script type="text/javascript">
+
+let oscura = document.getElementById("overlay")
+let popup = document.getElementById("popup")
+let vota = document.getElementById("vota")
+let userInput1 = document.getElementById("date1")
+let userInput2 = document.getElementById("date2")
+
+let giornate = []
+
+function apri () {
+    popup.style.display = "block";           
+}
+
+function daysInMonth (month, year) {
+    return new Date(year, month, 0).getDate();
+}
+
+function off () {
+    popup.style.display = "none";
+    vota.style.display = "block";
+
+
+    let from = new Date(userInput1.value)
+    let to = new Date(userInput2.value)
+
+    let dFrom = from.getDate()
+    let mFrom = from.getMonth()+1
+
+    let dTo = to.getDate() 
+    let mTo = to.getMonth()+1
+
+    let year = from.getFullYear()
+
+
+    if(mFrom == mTo){
+        for(i=0; i<=dTo-dFrom; i++){
+            let giorno = dFrom + i
+            giornate[i] = giorno.toString() + "/" + mFrom.toString()
+        }
+    }else{
+        j=0
+        for(i=dFrom; i<=daysInMonth(mFrom, year); i++){
+            giornate[j] = i.toString() + "/" + mFrom.toString()
+            j++
+        }
+        for(i=1; i<=dTo; i++){
+            giornate[j] = i.toString() + "/" + mTo.toString()
+            j++
+        }             
+    }
+
+
+  
+}
+
+function creadate(){
+
+    console.log("mucho gustooo")
+
+    let disponibilita = document.getElementById("disponibilita")
+    for(i=0; i<giornate.length; i++){
+        let giornata  = document.createElement("div")
+        disponibilita.appendChild("giornata")
+        giornata.classList.add("giornata")
+        let data = document.createElement("h5")
+        data.classList.add("datamese")
+        data.innerText = giornate[i]
+        giornata.appendChild("data")
+        let ul = document.createElement("ul")
+        giornata.appendChild("ul")
+        for(j=8; j<24; j++){
+            let li = document.createElement("li")
+            ul.appendChild("li")
+            let input = document.createElement("input")
+            input.classList.add("checkbox")
+            input.setAttribute("type", "checkbox")
+            input.innerText = j + ":00"
+        }
+    }
+}
+
+    </script>
+</body>
+</html>
